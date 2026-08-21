@@ -1,0 +1,42 @@
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>檔案管理器</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+
+<body>
+    <div class="cont">
+        <h1>File Explorer</h1>
+        <div class='upload'>
+            <h1>Upload Files</h1>
+            <form action="/api/upload" method="post" enctype="multipart/form-data">
+                <input type="text" name="name" id="name" required placeholder="file abbr.">
+                <input type="file" name="content" id="file" required>
+                <button type="submit">Upload</button>
+            </form>
+            <h1>Or</h1>
+            <form action="/api/upload" method="post" enctype="multipart/form-data">
+                <input type="text" name="name" id="" placeholder="url abbr." required>
+                <input type="url" name="content" placeholder="Website URL" required>
+                <button type="submit">Upload</button>
+            </form>
+        </div>
+        <br>
+        <div class="upload">
+            <h1>Delete Files</h1>
+            <form action="/api/delete" method="post">
+                <input type="text" name="name" id="" required placeholder="target">
+                <button type="submit">Delete</button>
+            </form>
+        </div>
+        <br>
+        <div class="upload">
+            <h1>Log In</h1>
+            <form action="/api/auth" method="post">
+                <input type="number" name="code" id="" required placeholder="target">
+                <button type="submit">Login</button>
+            </form>
+        </div>
+    </div>
+</body>

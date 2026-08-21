@@ -1,0 +1,43 @@
+@import url('https://fonts.googleapis.com/css2?family=Google+Sans+Flex:opsz,wght@6..144,1..1000&family=Noto+Sans+TC:wght@100..900&display=swap');
+html{
+    max-width: 100%;
+}
+
+body {
+    background-color: #0e1116;
+    color: white;
+    font-family: "Google Sans Flex", "Noto Sans TC", sans-serif;
+}
+
+div.cont{
+    width: 90%;
+    position: relative;
+    left: 50%;
+    transform: translateX(-50%);
+    margin-top: 5vh;
+    background-color: transparent;
+}
+
+div.upload{
+    position: relative;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100%;
+    background-color: #30363D;
+    color: white;
+    border: 3px solid #5A626B;
+    border-radius: 20px;
+}
+
+div.upload *{
+    margin: 1rem;
+}
+
+div.upload h1{
+    font-size: 2rem;
+    font-weight: 400;
+}
+
+div.upload form *{
+    font-size: 1rem;
+}

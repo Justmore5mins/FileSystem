@@ -1,0 +1,21 @@
+[project]
+name = "filesystem"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+authors = [
+    { name = "Justmore5mins", email = "justmore5mins@gmail.com" }
+]
+requires-python = ">=3.14.6"
+dependencies = [
+    "dotenv>=0.9.9",
+    "flask>=3.1.3",
+    "pyjwt>=2.13.0",
+    "pymongo>=4.17.0",
+    "pyotp>=2.10.0",
+    "qrcode>=8.2",
+]
+
+[build-system]
+requires = ["uv_build>=0.12.1,<0.13.0"]
+build-backend = "uv_build"
