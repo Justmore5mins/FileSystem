@@ -76,21 +76,24 @@ def getFile(name):
 @app.route("/api/upload", methods=["POST"])
 def uploadURL():
     name = request.form['name']
-    try:
-        content = request.form['content']
-    except:
+    if not db.find_one({"name":name}):
         try:
-            content = request.files.get('content')
+            content = request.form['content']
         except:
-            return Response(status=206)
-    if isinstance(content, FileStorage):
-        filename = content.filename 
-        content.save(BasePath / "database" / "files" / filename)# type:ignore
-        db.insert_one({"name":name, "type":"file","content":filename})
-    elif isinstance(content, str):
-        db.insert_one({"name":name, "type":"url","content":content})
-    return redirect("/")
-
+            try:
+                content = request.files.get('content')
+            except:
+                return Response(status=206)
+        if isinstance(content, FileStorage):
+            filename = content.filename 
+            content.save(BasePath / "database" / "files" / filename)# type:ignore
+            db.insert_one({"name":name, "type":"file","content":filename})
+        elif isinstance(content, str):
+            db.insert_one({"name":name, "type":"url","content":content})
+        return redirect("/")
+    else:
+        return Response(status=406)
+    
 @app.route("/api/delete", methods=["POST"])
 def deleteFile():
     res = db.find_one({"name":request.form['name']})
@@ -116,6 +119,10 @@ def auth():
         return res
     else:
         return Response(status=401)
+
+@app.route("/api/getAll", methods=['GET'])
+def getAll():
+    return [{"name":k['name'], "type":k['type'], "content": k['content']} for k in db.find()]
 
 if __name__ == "__main__":
     app.run("0.0.0.0", 80,debug=True)

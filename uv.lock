@@ -1,6 +1,6 @@
 version = 1
 revision = 3
-requires-python = ">=3.14.6"
+requires-python = ">=3.14"
 
 [[package]]
 name = "blinker"
@@ -62,7 +62,6 @@ dependencies = [
     { name = "pyjwt" },
     { name = "pymongo" },
     { name = "pyotp" },
-    { name = "qrcode" },
 ]
 
 [package.metadata]
@@ -72,7 +71,6 @@ requires-dist = [
     { name = "pyjwt", specifier = ">=2.13.0" },
     { name = "pymongo", specifier = ">=4.17.0" },
     { name = "pyotp", specifier = ">=2.10.0" },
-    { name = "qrcode", specifier = ">=8.2" },
 ]
 
 [[package]]
@@ -199,18 +197,6 @@ source = { registry = "https://pypi.org/simple" }
 sdist = { url = "https://files.pythonhosted.org/packages/6a/53/ed9d74092561d4b01a2ef1349d52cdbc135e526c245f366b089cfca6de49/python_dotenv-1.2.3.tar.gz", hash = "sha256:a20a594dabeaa385725aa239d5244871c143ecb356add8a20fcf23773a6c3a35", size = 58945, upload-time = "2026-08-16T16:54:54.067Z" }
 wheels = [
     { url = "https://files.pythonhosted.org/packages/0d/17/c5c6b53ddc18f297992099b3d9ec16c855c0ccc83263a21fe4d1c625ec6c/python_dotenv-1.2.3-py3-none-any.whl", hash = "sha256:904552145e8bfed22162c09dab1c2b9b54fefa7b23ba780f4f26ca0316b0f0d9", size = 22780, upload-time = "2026-08-16T16:54:52.473Z" },
-]
-
-[[package]]
-name = "qrcode"
-version = "8.2"
-source = { registry = "https://pypi.org/simple" }
-dependencies = [
-    { name = "colorama", marker = "sys_platform == 'win32'" },
-]
-sdist = { url = "https://files.pythonhosted.org/packages/8f/b2/7fc2931bfae0af02d5f53b174e9cf701adbb35f39d69c2af63d4a39f81a9/qrcode-8.2.tar.gz", hash = "sha256:35c3f2a4172b33136ab9f6b3ef1c00260dd2f66f858f24d88418a015f446506c", size = 43317, upload-time = "2025-05-01T15:44:24.726Z" }
-wheels = [
-    { url = "https://files.pythonhosted.org/packages/dd/b8/d2d6d731733f51684bbf76bf34dab3b70a9148e8f2cef2bb544fccec681a/qrcode-8.2-py3-none-any.whl", hash = "sha256:16e64e0716c14960108e85d853062c9e8bba5ca8252c0b4d0231b9df4060ff4f", size = 45986, upload-time = "2025-05-01T15:44:22.781Z" },
 ]
 
 [[package]]
