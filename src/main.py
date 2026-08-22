@@ -2,7 +2,7 @@ from flask import Flask, Response, send_from_directory, redirect, g, request
 from pathlib import Path
 from werkzeug.datastructures.file_storage import FileStorage
 from dotenv import load_dotenv
-from os import remove, environ
+from os import environ
 from pyotp import TOTP
 import jwt
 from jwt.exceptions import ExpiredSignatureError
@@ -10,6 +10,7 @@ from datetime import datetime, timedelta,UTC
 from pymongo import MongoClient
 from pymongo.server_api import ServerApi
 from platform import platform
+from vercel.blob import BlobClient
 
 if "macOS" in platform():
     load_dotenv(override=True)
@@ -75,8 +76,8 @@ def getFile(name):
         return Response(status=404)
     resType, content = result['type'], result['content']
     match(resType):
-        case "file":
-            return send_from_directory(BasePath / "database" / "files", content)
+        case "blob":
+            return redirect(content)
         case "url":
             return redirect(content)
         case _:
@@ -95,9 +96,9 @@ def uploadURL():
             except:
                 return Response(status=206)
         if isinstance(content, FileStorage):
-            filename = content.filename 
-            content.save(BasePath / "database" / "files" / filename)# type:ignore
-            db.insert_one({"name":name, "type":"file","content":filename})
+            filename = content.filename  or "upload"
+            blob = BlobClient().put("files/{}".format(filename), content.stream.read(), access="public", content_type= content.mimetype or "application/octet-stream", add_random_suffix=True, overwrite=True)
+            db.insert_one({"name":name, "type":"blob", "content":blob.url})
         elif isinstance(content, str):
             db.insert_one({"name":name, "type":"url","content":content})
         return redirect("/")
@@ -110,8 +111,8 @@ def deleteFile():
     if not res:
         return "File not found", 404
     contentType, content = res['type'], res['content']
-    if contentType == "file":
-        remove(BasePath/"database"/"files"/content)
+    if contentType == "blob":
+        BlobClient().delete(content)
     db.delete_one({"name":request.form['name']})
     return redirect("/")
 
