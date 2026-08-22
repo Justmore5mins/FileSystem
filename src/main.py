@@ -16,7 +16,7 @@ if "macOS" in platform():
 
 BasePath: Path = Path(__file__).resolve().parent.parent
 
-app = Flask(__name__, static_folder=BasePath/'public', static_url_path="/static")
+app = Flask(__name__, static_folder=None)
 db = MongoClient(environ.get("Database"), server_api=ServerApi('1'))['data']['data']
 
 @app.before_request
@@ -59,6 +59,14 @@ def addSecurity(res: Response):
 @app.route("/")
 def main():
     return send_from_directory(BasePath / "public", "index.html")
+
+@app.route("/style.css")
+def style():
+    return send_from_directory(BasePath / "public", "style.css")
+
+@app.route("/script.js")
+def script():
+    return send_from_directory(BasePath / "public", "script.js")
 
 @app.route("/<name>", methods=['GET'])
 def getFile(name):
@@ -128,4 +136,4 @@ def getAll():
     return [{"name":k['name'], "type":k['type'], "content": k['content']} for k in db.find()]
 
 if __name__ == "__main__":
-    app.run("0.0.0.0", 80,debug=True)
+    app.run("0.0.0.0", 80)
