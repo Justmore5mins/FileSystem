@@ -11,3 +11,5 @@ wheels/
 .env
 *.sql
 client.json
+.vercel
+.env*

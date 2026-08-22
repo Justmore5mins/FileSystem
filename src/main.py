@@ -17,7 +17,7 @@ if "macOS" in platform():
 BasePath: Path = Path(__file__).resolve().parent.parent
 
 app = Flask(__name__, static_folder=BasePath/'public', static_url_path="/static")
-db = MongoClient(environ['Database'], server_api=ServerApi('1'))['data']['data']
+db = MongoClient(environ.get("Database"), server_api=ServerApi('1'))['data']['data']
 
 @app.before_request
 def doSomething():
@@ -26,7 +26,7 @@ def doSomething():
         if not token:
             return Response(status=401)
         try:
-            jwt.decode(token,environ['JWTSecret'], algorithms="HS256")
+            jwt.decode(token,environ.get("JWTSecret"), algorithms="HS256")
         except ExpiredSignatureError :
             return Response(status=401)
     else:
@@ -111,12 +111,13 @@ def deleteFile():
 @app.route("/api/auth", methods=["POST"])
 def auth():
     code = request.form['code']
-    print(code,TOTP(environ['OTPSecret']).verify(code))
-    if TOTP(environ['OTPSecret']).verify(code):
+    sec = environ.get('OTPSecret')
+    sec = sec if sec else ""
+    if TOTP(sec).verify(code):
         res = redirect("/")
         data = jwt.encode({
             "exp": (datetime.now()+timedelta(minutes=10)).astimezone(tz=UTC)
-        },key=environ['JWTSecret'],algorithm="HS256")
+        },key=environ.get("JWTSecret"),algorithm="HS256")
         res.set_cookie("Authorization",data)
         return res
     else:
