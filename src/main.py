@@ -9,8 +9,10 @@ from jwt.exceptions import ExpiredSignatureError
 from datetime import datetime, timedelta,UTC
 from pymongo import MongoClient
 from pymongo.server_api import ServerApi
+from platform import platform
 
-load_dotenv(override=True)
+if "macOS" in platform():
+    load_dotenv(override=True)
 
 BasePath: Path = Path(__file__).resolve().parent.parent
 
