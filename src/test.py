@@ -1,3 +1,1 @@
-from platform import platform
-
-print(platform())
+print("/".join("brochures/115/tku".split("/")[:-1]))

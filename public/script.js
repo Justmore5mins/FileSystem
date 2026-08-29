@@ -7,7 +7,7 @@ window.addEventListener("load", () => {
             for (const record of r) {
                 document.querySelector("table").insertAdjacentHTML("beforeend", `
                     <tr>
-                        <td>${record.name}</td>
+                        <a href='https://files.justmore5mins.com/${record.name}'><td>${record.name}</td></a>
                         <td>${record.type}</td>
                         <td>${record.content}</td>
                     </tr>
@@ -15,4 +15,5 @@ window.addEventListener("load", () => {
             }
         }).catch(r => {
         });
+
 });

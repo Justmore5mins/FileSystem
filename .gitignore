@@ -13,3 +13,4 @@ wheels/
 client.json
 .vercel
 .env*
+gd.json
